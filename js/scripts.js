@@ -1,8 +1,7 @@
 function initAndExecute() {
-	var myAnchors = document.querySelectorAll('time.published');
-	for (var i = 0; i < myAnchors.length; i++) {
-	  var item = myAnchors[i];
-	  executeReplacement(item);
+	var timesPublished = document.querySelectorAll('time.published');
+	for (var i = 0; i < timesPublished.length; i++) {
+		executeReplacement(timesPublished[i]);
 	}
 };
 
