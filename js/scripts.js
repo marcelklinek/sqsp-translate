@@ -1,11 +1,26 @@
-var myAnchor = document.querySelector('time.published');
-var dateString = myAnchor.attributes['datetime'].value;
-var date = new Date(dateString);
+function initAndExecute() {
+	var myAnchors = document.querySelectorAll('time.published');
+	for (var i = 0; i < myAnchors.length; i++) {
+	  var item = myAnchors[i];
+	  executeReplacement(item);
+	}
+};
 
-var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-var result = date.toLocaleDateString('ru-RU', options);
+function executeReplacement(myAnchor) {
+	var date = new Date(extractDateFromElement(myAnchor));
+	var localizedDate = date.toLocaleDateString('ru-RU', dateOptions);
+	replaceInnerTimeHtml(myAnchor, localizedDate);	
+}
 
-var newEl = myAnchor.cloneNode();
-newEl.innerHTML = '' + result;
+function extractDateFromElement(el) {
+	return el.attributes['datetime'].value;
+}
 
-myAnchor.parentNode.replaceChild(newEl, myAnchor);
+function replaceInnerTimeHtml(el, text) {
+	var newEl = el.cloneNode();
+	newEl.innerHTML = '' + text;
+	el.parentNode.replaceChild(newEl, el);	
+}
+
+var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+initAndExecute();
